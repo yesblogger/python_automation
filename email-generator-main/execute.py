@@ -13,6 +13,8 @@ from find_email import Email
 def main():
     # get file name of the source file
     s_file = input('File name or path: ')
+    d_key = input('Enter Clearbit key: ')
+    h_key = input('Enter hunter key: ')
     
     #open file then iterate over the rows
     with open(s_file, 'r') as i_file:
@@ -22,8 +24,8 @@ def main():
         next(i_cursor)
         
         #setting up custom classes
-        domain = Domain()
-        email = Email()
+        domain = Domain(d_key)
+        email = Email(h_key)
         
         #opeing the output file
         with open('output_data.csv', 'w', newline='') as o_file:
