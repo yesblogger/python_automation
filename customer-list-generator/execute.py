@@ -11,7 +11,7 @@ import time
 
 def main():
     # ask the directory path
-    direct = input("Please enter the directory path of the input folder: ")
+    #direct = input("Please enter the directory path of the input folder: ")
     # ask the user for the file name
     in_file = input("Please enter the file name: ")
     # ask how many files are there
@@ -25,9 +25,9 @@ def main():
     company_driver = Search()
 
     # initiate loop to open file one at a time and read data
-    for i in range(file_no):
+    for i in range(1, file_no + 1):
         # open file one at a time
-        with open(rf"{direct}{in_file}-{i}.csv", mode="r") as i_file:
+        with open(f"{in_file}-({i}).csv", mode="r") as i_file:
             # creating a reader object to read the opened file
             reader = csv.reader(i_file)
             # skipping the header section
