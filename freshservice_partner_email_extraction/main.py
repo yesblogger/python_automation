@@ -2,6 +2,7 @@
 # input country name
 # input file name
 # driver open browser
+# set initial url path
 # driver set filter
 # open csv file
 # driver extract name and email element
@@ -24,3 +25,11 @@ if __name__ == '__main__':
             break
     # ask for a filename
     filename = input('Please enter a filename: ')
+
+    # create instance of the driver
+    browser = webDriver(country)
+    # set initial URL in the driver
+    browser.setInitialURL()
+
+    
+
