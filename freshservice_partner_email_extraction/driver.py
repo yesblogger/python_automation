@@ -1,3 +1,4 @@
+#driver.execute_script("arguments[0].setAttribute('class','vote-link up voted')", element)
 from selenium import webdriver
 import time
 
