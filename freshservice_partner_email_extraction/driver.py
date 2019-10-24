@@ -23,10 +23,38 @@ class webDriver:
     def setInitialURL(self):
         """[Set the URL of the partner portal in the driver]
         """
-        self.driver.get('https://www.freshworks.com/company/partners/find-partners/')
+        self.driver.get(
+            'https://www.freshworks.com/company/partners/find-partners/')
         time.sleep(3)
 
     def setFilter(self):
-        """[Find the filter element and set the filter]
+        """[Find the filter elements and set the filter criteria]
         """
-        pass
+        try:
+            # fetching the input element where country is entered
+            countryInputElement = self.driver.find_element_by_xpath(
+                '//input[@id="partner_country_input"]')
+            # updating the value attribute of the input field using javascript
+            self.driver.execute_script(
+                f"arguments[0].setAttribute('value',{self.country})", countryInputElement)
+            # fetching label elements containing the checkboxes for Partner Type
+            labelElements = self.driver.find_elements_by_xpath(
+                '//div[./h6/text()="Partner Type"]/label')
+            # pausing the thread for 2 secods
+            time.sleep(2)
+            # looping over the label elements and clicking them
+            for i in labelElements:
+                i.click()
+                time.sleep(2)
+        except Exception as error:
+            print(error)
+            self.driver.quit()
+
+    def captureData(self, writer):
+        """[Capture name and email and put it into a csv file]
+
+        Arguments:
+            writer {[csv object]} -- [file object]
+        """
+        try:
+            # //div[@data-country="IN"]//div[@class="reseller-info"]

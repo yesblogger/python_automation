@@ -28,8 +28,19 @@ if __name__ == '__main__':
 
     # create instance of the driver
     browser = webDriver(country)
-    # set initial URL in the driver
+    # set initial URL in the driver. Freshservice partner search page will open
     browser.setInitialURL()
-
-    
-
+    # In the partner search page, we will set the filter with the counter info
+    browser.setFilter()
+    # now we will open a csv file and capture the name and email details
+    with open(f'{filename}.csv', mode='w', newline='') as w_file:
+        # definging the heading of the file
+        heading = ['Name', 'Email']
+        # creating a csv writer object
+        writer = csv.DictWriter(w_file, fieldnames=heading)
+        # writing the first row
+        writer.writeheader()
+        # now we are going to pass on the writer object to the capture function
+        browser.captureData(writer)
+    # once the fetching of the data is done we will close the browser
+    browser.closeConnection()
