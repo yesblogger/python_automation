@@ -1,7 +1,7 @@
-#driver.execute_script("arguments[0].setAttribute('class','vote-link up voted')", element)
 from selenium import webdriver
 import time
 
+#driver.execute_script("arguments[0].setAttribute('class','vote-link up voted')", element)
 
 class webDriver:
 
@@ -50,7 +50,7 @@ class webDriver:
             print(error)
             self.driver.quit()
 
-    def captureData(self, writer):
+    def captureData(self, writer, countryCode):
         """[Capture name and email and put it into a csv file]
 
         Arguments:
@@ -58,3 +58,8 @@ class webDriver:
         """
         try:
             # //div[@data-country="IN"]//div[@class="reseller-info"]
+            primaryBlock = self.driver.find_elements_by_xpath(f"//div[@data-country={countryCode}//div[@class='reseller-info']")
+            # pausing the thread for 2 seconds
+            time.sleep(2)
+            pass
+
