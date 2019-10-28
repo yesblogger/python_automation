@@ -3,6 +3,7 @@ import time
 
 #driver.execute_script("arguments[0].setAttribute('class','vote-link up voted')", element)
 
+
 class webDriver:
 
     def __init__(self, country):
@@ -57,9 +58,57 @@ class webDriver:
             writer {[csv object]} -- [file object]
         """
         try:
-            # //div[@data-country="IN"]//div[@class="reseller-info"]
-            primaryBlock = self.driver.find_elements_by_xpath(f"//div[@data-country={countryCode}//div[@class='reseller-info']")
+            # xpath for filtering primany block
+            primaryBlock = self.driver.find_elements_by_xpath(
+                f'//div[@data-country="{countryCode}"]//div[@class="reseller-info"]')
             # pausing the thread for 2 seconds
             time.sleep(2)
-            pass
+            # iterating over the primaryBlock elements and fetching the name and email
+            for elem in primaryBlock:
+                # extracting key data points
+                name = elem.find_element_by_xpath(
+                    './h6').get_attribute('textContent')
+                email = elem.find_element_by_xpath(
+                    './span/a').get_attribute('textContent')
+                # writing data points into the file
+                writer.writerow({'Name': name, 'Email': email})
+            # pausing the thread for 2 seconds
+            time.sleep(2)
+            # scrolling the page
+            self.driver.execute_script(
+                "window.scrollTo(0, document.body.scrollHeight);")
+            time.sleep(3)
+        except Exception as error:
+            print(error)
+            self.driver.quit()
 
+    def captureAllData(self, writer):
+        """[Capture all emails on the website irrespective of the country]
+
+        Arguments:
+            writer {[CSV dictwriter object]} -- [file object]
+        """
+        try:
+            # capturing the primary block
+            primaryBlock = self.driver.find_elements_by_xpath(
+                '//div[@class="reseller-info"]')
+            # pausing the thread for 2 seconds
+            time.sleep(2)
+            # iterating over the primaryblock to capture name and email
+            for elem in primaryBlock:
+                # extracting key data points
+                name = elem.find_element_by_xpath(
+                    './h6').get_attribute('textContent')
+                email = elem.find_element_by_xpath(
+                    './span/a').get_attribute('textContent')
+                # writing data points into the file
+                writer.writerow({'Name': name, 'Email': email})
+            # pausing the thread for 2 seconds
+            time.sleep(2)
+            # scrolling the page
+            self.driver.execute_script(
+                "window.scrollTo(0, document.body.scrollHeight);")
+            time.sleep(3)
+        except Exception as error:
+            print(error)
+            self.driver.quit()
