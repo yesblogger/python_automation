@@ -1,2 +1,4 @@
 # python_automation
-Scripts to automate digital marketing tasks.
+
+These are scripts to automate my day to day office works. Using these scripts, I automate my lead generation processes. 
+
